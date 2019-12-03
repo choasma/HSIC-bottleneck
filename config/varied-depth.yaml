@@ -1,0 +1,21 @@
+batch_size: 256
+learning_rate: 0.005
+sigma: 5.
+lambda_x: 1.
+lambda_y: 200.
+epochs: 5
+n_layers: 1 # determined by script/task_varieddepth.sh
+hidden_width: 256
+last_hidden_width: 128
+seed: 1234
+
+device: cuda
+model: linear
+atype: relu
+data_code: mnist
+training_type: backprop
+task: varied-depth
+
+verbose: 0
+log_batch_interval: 20
+exp_index: null # determined by task.task_varieddepth

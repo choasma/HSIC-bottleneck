@@ -1,0 +1,22 @@
+batch_size: 512
+learning_rate: 0.0005
+n_layers: 5
+hidden_width: 256
+sigma: 100.
+lambda_x: 1
+lambda_y: 50.
+epochs: 5
+seed: 1234
+
+device: cuda
+model: linear
+data_code: mnist
+checkpoint: null
+task: hsic-solve
+ext: pdf
+training_type: backprop # backprop/format 
+
+log_batch_interval: 25
+verbose: 0
+exp_index: null
+do_training: True

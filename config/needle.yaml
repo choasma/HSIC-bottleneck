@@ -1,0 +1,22 @@
+batch_size: 256
+learning_rate: 0.0001
+sigma: 5
+lambda_x: 1.
+lambda_y: 500.
+epochs: 5
+last_hidden_width: 10
+seed: 1234
+atype: tanh
+
+data_code: mnist
+model: needle
+log_batch_interval: 20
+device: cuda
+ext: pdf
+task: needle
+training_type: backprop # hsictrain/backprop two options
+
+checkpoint: null
+verbose: 1
+exp_index: null
+do_training: True

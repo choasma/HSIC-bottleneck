@@ -1,0 +1,24 @@
+batch_size: 512
+learning_rate: 0.01
+n_layers: 5
+hidden_width: 64
+epochs: 5
+sigma: 5.
+lambda_x: 1.
+lambda_y: 200.
+seed: 1234
+last_hidden_width: 512
+
+device: cuda
+model: resnet-conv
+atype: relu
+data_code: mnist
+model_file: hsic_weight_resconv_mnist.pt
+checkpoint: null
+task: resconv 
+training_type: hsictrain
+
+log_batch_interval: 20
+verbose: 1
+exp_index: null
+do_training: True

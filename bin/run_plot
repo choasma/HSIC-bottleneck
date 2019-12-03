@@ -1,0 +1,75 @@
+#!/usr/bin/env python
+
+from hsicbt.core.dispatcher import plot_execution
+from hsicbt.utils.io import load_yaml
+from hsicbt.utils.welcome import say_hello
+from hsicbt.utils.path import *
+import argparse
+import os
+import numpy as np
+
+def get_args():
+    """ args from input
+    """
+    parser = argparse.ArgumentParser(description='HSIC-Bottleneck Plots')
+    parser.add_argument('-t', '--task', default="general",
+        type=str, help='training task name')
+    parser.add_argument('-e', '--ext', default="pdf",
+        type=str, help='plot file format')
+    parser.add_argument('-dc', '--data-code', default="mnist",
+        type=str, help='training data name: [mnist|fmnist|cifar10]')
+    parser.add_argument('-tt', '--training-type', default="hsictrain",
+        type=str, help='training type name: [hsictrain|format|backprop]')
+    parser.add_argument('-ft', '--footnote', default="",
+        type=str, help='footnote for the bottom of exp image')
+    parser.add_argument('-st', '--start-time', default="",
+        type=str, help='the interested images with log timecode greater than start-time in format %y%m%d_%H%M%S')
+    parser.add_argument('-et', '--end-time', default="",
+        type=str, help='the interested images with log timecode less than end-time in format %y%m%d_%H%M%S')
+    parser.add_argument('-fn', '--filename', default="",
+        type=str, help='specific log name under raw you would like to show')
+    parser.add_argument('-id', '--idx', default=1,
+        type=int, help='file index')
+    parser.add_argument('-pt', '--plot-task', default=1,
+        type=int, help='the plotting indicator according each task at hsicbt.task.*')    
+    args = parser.parse_args()
+
+    return args
+    
+def main():
+
+
+    args = get_args()
+
+    config_dict = {}
+    config_dict['task'] = args.task
+    config_dict['data_code'] = args.data_code
+    config_dict['ext'] = args.ext
+    config_dict['training_type'] = args.training_type
+    config_dict['footnote'] = args.footnote
+    config_dict['exp_idx'] = 1
+    config_dict['plot_task'] = args.plot_task
+
+    if args.filename:
+        filepath = get_log_raw_filepath_(args.filename)
+        config_dict['filepath'] = filepath
+        if not os.path.exists(filepath):
+            raise ValueError('Invalid path [{}]'.format(filepath))
+        data_log = np.load(filepath, allow_pickle=True)[()]
+        config_dict['task'] = data_log['config_dict']['task']
+        config_dict['data_code'] = data_log['config_dict']['data_code']
+        config_dict['training_type'] = data_log['config_dict']['training_type']
+        if args.idx:
+            config_dict['exp_idx'] = args.idx
+        
+        print(config_dict)
+    #if args.start_time and args.end_time:
+    #    con\fig_dict['time_range'] = (args.start_time, args.end_time)
+    
+
+    
+    plot_execution(config_dict)
+    
+
+if __name__ == '__main__':
+    main()

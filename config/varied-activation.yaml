@@ -1,0 +1,20 @@
+batch_size: 256
+learning_rate: 0.005
+sigma: 5.
+epochs: 5
+n_layers: 5
+hidden_width: 256
+last_hidden_width: 128
+seed: 1234
+
+device: cuda
+model: linear
+atype: relu # determined by task.task_variedact
+data_code: mnist
+checkpoint: null
+task: varied-activation
+training_type: backprop
+
+verbose: 0
+log_batch_interval: 20
+exp_index: null # determined by task.task_variedact

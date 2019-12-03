@@ -1,0 +1,20 @@
+batch_size: 256
+learning_rate: 0.005
+n_layers: 5
+hidden_width: 128
+epochs: 5
+seed: 1234
+
+device: cuda
+model: linear
+atype: relu
+data_code: mnist
+model_file: hsic_weight_linear_mnist.pt
+task: general
+training_type: format
+
+log_batch_interval: 10
+verbose: 0 
+ext: pdf
+exp_index: null
+

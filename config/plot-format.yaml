@@ -1,0 +1,21 @@
+general:
+  - plot_task: "test"
+  - title: "sigma experiments"
+  - ext: pdf
+  - footnote: "none"
+files:
+  - /am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_091212_general-format-mnist.npy
+  - /am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_092101_general-format-mnist.npy
+  - /am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_093226_general-format-mnist.npy
+  - /am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_093914_general-format-mnist.npy
+  - /am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_095004_general-format-mnist.npy
+  - /am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_100327_general-format-mnist.npy
+  - /am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_100327_general-format-mnist.npy
+labels:
+  - "a) latest-setting"
+  - "b) Kx-s,Ky-s: 5.0, 0.5"
+  - "c) normalized Kx, Ky"
+  - "d) Kz-s: 100."
+  - "e) Kz-s: 1000."
+  - "f) Kz-s: 1."
+  - "e) both Kx-s,Ky-s 1.0; Kz-s 100"

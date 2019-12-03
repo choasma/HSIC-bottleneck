@@ -1,0 +1,24 @@
+batch_size: 512
+learning_rate: 0.0001
+sigma: -1. # determined by task.task_sigmacomb
+lambda_x: 1.
+lambda_y: 50.
+epochs: 5
+checkpoint: null
+n_layers: 5
+hidden_width: 128
+last_hidden_width: 64
+seed: 1234
+
+device: cuda
+model: linear
+atype: relu
+data_code: mnist
+model_file: hsic_weight_sigmacomb_mnist.pt # will be modified by task.task_sigmacomb
+task: sigma-combined
+training_type: hsictrain
+
+verbose: 0
+ext: pdf
+log_batch_interval: 20
+exp_index: 0 # determined by task.task_sigmacomb

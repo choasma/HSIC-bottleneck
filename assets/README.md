@@ -1,0 +1,1 @@
+The place storing all figures, and some other assets

@@ -1,0 +1,23 @@
+# general
+/am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_090722_hsic-train-hsictrain-mnist.npy
+/am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_091212_general-format-mnist.npy
+
+# fix training data sigma (.5, 5.)
+/am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_091608_hsic-train-hsictrain-mnist.npy
+/am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_092101_general-format-mnist.npy
+
+# same, but normalized
+/am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_092727_hsic-train-hsictrain-mnist.npy
+/am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_093226_general-format-mnist.npy
+
+# if enlarge activation sigmas = 100.
+/am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_093420_hsic-train-hsictrain-mnist.npy
+/am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_093914_general-format-mnist.npy
+
+# if sigma=1000.
+/am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_094509_hsic-train-hsictrain-mnist.npy
+/am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_095004_general-format-mnist.npy
+
+# if sigma=1.
+/am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_095822_hsic-train-hsictrain-mnist.npy
+/am/state-opera/home1/mawand/kma-workspace/project/hsbtr/assets/logs/raw/190924_100327_general-format-mnist.npy

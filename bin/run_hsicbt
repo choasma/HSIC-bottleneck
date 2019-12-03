@@ -1,0 +1,123 @@
+#!/usr/bin/env python
+
+from hsicbt.core.dispatcher import job_execution
+from hsicbt.utils.io import load_yaml
+from hsicbt.utils.welcome import say_hello
+from hsicbt.utils.color import print_highlight
+from hsicbt.utils.const import *
+import argparse
+import os
+
+def get_args():
+    """ args from input
+    """
+    parser = argparse.ArgumentParser(description='HSIC-Bottleneck research')
+    
+    parser.add_argument('-cfg', '--config', required=True,
+        type=str, help='config input path')
+    parser.add_argument('-d', '--dim', default=0,
+        type=int, help='specifying dimension of hidden layers for varied-dim experiments')
+    parser.add_argument('-lhw', '--last-hidden-width', default=0,
+        type=int, help='the last hidden dense layer width of HSIC-trained network')
+    parser.add_argument('-dt', '--depth', default=0,
+        type=int, help='specifying depth for varied-depth experiments')
+    parser.add_argument('-ei', '--exp-idx', default=0, nargs='+',
+        type=int, help='the index for varied experiments')
+    parser.add_argument('-tt', '--training-type', default='',
+        type=str, help='training types [hsictrain|format|backprop]')
+    parser.add_argument('-bs', '--batch-size', default=0,
+        type=int, help='minibatch size')
+    parser.add_argument('-lr', '--learning-rate', default=0,
+        type=float, help='learning rate')
+    parser.add_argument('-ld', '--lambda-y', default=0,
+        type=float, help='the coefficient of the HSIC-bottleneck objective')        
+    parser.add_argument('-ep', '--epochs', default=0,
+        type=int, help='number of training epochs')
+    parser.add_argument('-s', '--sigma', default=0,
+        type=float, help='nHSIC sigmas')
+    parser.add_argument('-sd', '--seed', default=0,
+        type=int, help='random seed for the trial')
+    parser.add_argument('-vb', '--verbose',
+        action='store_true', help='printing the model/config description')
+    parser.add_argument('-at', '--activation-func', default=0,
+        type=str, help='name of the activation func [elu|tanh|relu|sigmoid]')
+    parser.add_argument('-dc', '--data-code', default='mnist',
+        type=str, help='name of the working dataset [mnist|fmnist|cifar10]')
+    parser.add_argument('-m', '--model', default='',
+        type=str, help='name of the activation func [linear|conv|reslinear|resconv]')
+    parser.add_argument('-mf', '--model-file', default='',
+        type=str, help='filename of the interested HSIC-trained model file')
+    parser.add_argument('-db', '--debug',
+        action='store_true', help='debug usage')
+    
+    args = parser.parse_args()
+
+    return args
+    
+def main():
+
+    #say_hello()
+    args = get_args()
+    config_dict = load_yaml(args.config)
+
+    if args.last_hidden_width:
+        config_dict['last_hidden_width'] = args.last_hidden_width
+    if args.verbose:
+        config_dict['verbose'] = 1
+    if args.lambda_y:
+        config_dict['lambda_y'] = args.lambda_y
+    if args.seed:
+        config_dict['seed'] = args.seed
+    if args.learning_rate:
+        config_dict['learning_rate'] = args.learning_rate
+    if args.model_file:
+        config_dict['model_file'] = args.model_file
+    if args.dim:
+        config_dict['hidden_width'] = args.dim
+    if args.depth:
+        config_dict['n_layers'] = args.depth
+    if args.training_type:
+        config_dict['training_type'] = args.training_type
+    if args.exp_idx:
+        config_dict['exp_index'] = args.exp_idx
+    if args.batch_size:
+        config_dict['batch_size'] = args.batch_size
+    if args.epochs:
+        config_dict['epochs'] = args.epochs
+    if args.activation_func:
+        config_dict['atype'] = args.activation_func
+    if args.sigma:
+        config_dict['sigma'] = args.sigma
+    if args.data_code:
+        config_dict['data_code'] = args.data_code
+    if args.model:
+        config_dict['model'] = args.model
+
+    debug_mode = -1
+    if os.environ.get('HSICBT_DEBUG'):
+        debug_mode = int(os.environ.get('HSICBT_DEBUG'))
+    if debug_mode == 1:
+        config_dict['epochs'] = 1
+        config_dict['verbose'] = 1
+        print_highlight("debug mode - 1: only run 1 epoch and printing models/configs", 'yellow')
+    if debug_mode == 2:
+        config_dict['epochs'] = 1
+        print_highlight("debug mode - 2: only run 1 epoch with full batches", 'yellow')
+    if debug_mode == 3:
+        config_dict['verbose'] = 1
+        print_highlight("debug mode - 3: printing models and configs", 'yellow')
+    if debug_mode == 4:
+        config_dict['epochs'] = 1
+        print_highlight("debug mode - 4: running only 1 batch and 1 epoch", 'yellow')
+        config_dict['verbose'] = 1
+        print(config_dict)
+
+    if args.exp_idx and len(args.exp_idx) == 1:
+        config_dict['exp_index'] = config_dict['exp_index'][0]
+    config_dict[TIMESTAMP] = os.environ[TIMESTAMP]
+
+    job_execution(config_dict)
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,23 @@
+batch_size: 512
+learning_rate: 0.0001
+n_layers: 5
+hidden_width: 128
+epochs: 5
+sigma: 5.
+lambda_x: 1.
+lambda_y: 50.
+seed: 1234
+
+device: cuda
+model: linear
+atype: relu
+data_code: mnist
+model_file: hsic_weight_linear_mnist.pt
+checkpoint: null
+task: hsic-train
+training_type: hsictrain
+
+log_batch_interval: 10
+verbose: 0
+exp_index: null
+do_training: True
