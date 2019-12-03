@@ -22,7 +22,7 @@ batch.sh
 After the batch training, you'll get the following result in your `assets/exp` folder, and please compare to our sample results under `assets/sample` folder:
 For more information, please visit the running procedure page (config/READMD.md [link](config/README.md)) and (bin/README.md [link](bin/README.md)) for more information.
 ```sh
-# there's fig* context at beginning for the convenience 
+# there's fig* context at beginning for convenience 
 [mawand@machine HSIC-bottleneck]$ ls -l assets/exp | awk '{print $9}'
 fig2a-varied-activation-hsic_xz-mnist.pdf
 fig2b-varied-activation-hsic_yz-mnist.pdf
