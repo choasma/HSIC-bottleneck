@@ -1,5 +1,10 @@
+
+
 # HSIC-Bottleneck
 This is the released repo for our work entitled `The HSIC Bottleneck: Deep Learning without Back-Propagation`. All the experiments were produced by this repository.
+
+# Updates
+Our work has been accepted by AAAI2020 international conference.
 
 ### Environment
 - pytorch-1.1.0
