@@ -3,7 +3,7 @@ from .  import *
 from .train_misc     import *
 from ..utils.const   import *
 
-def hsic_train(cepoch, model, data_loader, config_dict, sigma_tensor):
+def hsic_train(cepoch, model, data_loader, config_dict):
 
     cross_entropy_loss = torch.nn.CrossEntropyLoss()
     prec1 = total_loss = hx_l = hy_l = -1
@@ -23,7 +23,7 @@ def hsic_train(cepoch, model, data_loader, config_dict, sigma_tensor):
 
     n_data = config_dict['batch_size'] * len(data_loader)
 
-    sigma_optimizer = optim.SGD([sigma_tensor], lr=1E-5)
+    # sigma_optimizer = optim.SGD([sigma_tensor], lr=1E-5)
 
     # for batch_idx, (data, target) in enumerate(data_loader):
     pbar = tqdm(enumerate(data_loader), total=n_data/config_dict['batch_size'], ncols=120)
