@@ -260,8 +260,8 @@ def training_hsic(config_dict):
         epoch_log_dict['test_acc'].append(test_acc)        
     
     for cepoch in epoch_range:
-        
-        log = hsic_train(cepoch, model, train_loader, config_dict, sigma_tensor)
+
+        log = hsic_train(cepoch, model, train_loader, config_dict)
 
         batch_log_list.append(log)
 
