@@ -1,0 +1,95 @@
+#+OPTIONS: ^:nil
+
+* Task Script
+Each config file represents the single task, which might have several trainings according to the paper figures. You could simply run *batch.sh* to reproduce all the figures from our paper, or either go to each task script described in batch.sh for further research.
+
+* Easy life
+Each run is according to the specific task generating figure in the paper. To reproduce all the experiments that we have in the paper, you could run our batch script by the following instruction:
+
+#+begin_src bash
+# in bash
+git clone git@gitlab.com:gladiator8072/hsic-bottleneck.git 
+source env.sh
+batch.sh
+#+end_src
+
+After the batch training, you'll get the following result in your *assets/exp* folder, and please compare to our sample results under *assets/sample* folder:
+For more information, please visit the running procedure page (config/READMD.md [link](config/README.md)) and (bin/README.md [link](bin/README.md)) for more information.
+#+begin_src bash
+# there's fig* context at beginning for convenience 
+[mawand@machine HSIC-bottleneck]$ ls -l assets/exp | awk '{print $9}'
+fig2a-varied-activation-hsic_xz-mnist.pdf
+fig2b-varied-activation-hsic_yz-mnist.pdf
+fig2c-varied-activation-acc-mnist.pdf
+fig2d-varied-depth-hsic_xz-mnist.pdf
+fig2e-varied-depth-hsic_yz-mnist.pdf
+fig2f-varied-depth-acc-mnist.pdf
+fig3a-needle-1d-dist-backprop.pdf
+fig3b-needle-1d-dist-hsictrain.pdf
+fig4-hsic-solve-actdist-cifar10.pdf
+fig4-hsic-solve-actdist-fmnist.pdf
+fig4-hsic-solve-actdist-mnist.pdf
+fig5-hsic-solve-cifar10-train-acc.pdf
+fig5-hsic-solve-fmnist-train-acc.pdf
+fig5-hsic-solve-mnist-train-acc.pdf
+fig6a-varied-epoch-acc-mnist.pdf
+fig6b-varied-epoch-loss-mnist.pdf
+fig7a-varied-dim-acc-mnist.pdf
+fig7b-sigma-combined-mnist-sigmacomb-train-acc.pdf
+#+end_src
+
+* Difficult life
+
+** Procedure
+HSIC-bottleneck is task oriented project that make each tasks following the similar action. In general, you'll take the following steps to achieve your specific task 
+- go to the project root directory
+- setting the environment *source env.sh*
+- run command prefixed with *task_*
+- load the given config *[config_path]*
+- training,
+- save the logs under `./assets/logs` (optional)
+- save figures in `./assets/exp` (with prefixed "fig", corresponding to the paper figures)
+
+** Tasks
+Here we're showing all the tasks that produced in the paper.
+
+*** varied-activation (fig2a-c)
+- nHSIC monitoring in backprop training. It shows $\text{nHSIC}(X,Z_L)$, $\text{nHSIC}(Y,Z_L)$ would decrease and increase
+respectively. As the evidence the network learn the dependency from output and reduce it from input
+- *task_varied-act.sh* - [[file:task_varied-act.sh][link]]
+
+*** varied-depth (fig2d-f)
+- nHSIC monitoring in backprop training. It shows $nHSIC(X,Z_L)$, $nHSIC(Y,Z_L)$ would decrease and increase
+respectively. As the evidence the network learn the dependency from output and reduce it from input
+- *task_varied-dim.sh* - [[file:task_varied-dim.sh][link]]
+
+*** needle [fig3a-b]
+- Originally placed in our first arxiv in fig3. This experiment shows how well the HSIC-trained network
+separates the classed signals in the scalared network output (tanh case)
+- *task_needle.sh* - [[file:task_needle.sh][link]]
+
+*** hsicsolve (fig3, fig4)
+- Unformat-training, where we use HSIC-trained network to solve the classification problem. The output
+of the network is no longer ordered vector as in one-hot label matrix. The particular image category
+might go to some other entry.
+- *task_hsicsolve.sh* - [[file:task_hsicsolve-beta.sh][link]]
+
+*** varied-epoch (fig5a-b)
+- The boosting test which the long HSIC-trained network allows faster convergence of format-train.
+- *task_varied-ep.sh* - [[file:task_varied-ep.sh][link]]
+
+*** varied-dim (fig6a)
+- The capacity of HSIC-trained network experiments. The aim of this task is we hope large network can hold 
+more information from the input, making the format-training better.
+- *task_varied-dim.sh* - [[file:task_varied-dim.sh][link]]
+
+*** sigma-combined (fig6b)
+- The capacity of HSIC-trained network experiments. First of all process 3 HSIC-trained network with different 
+sigma scale and produce 3 format-training results. Then load and average those 3 networks for format-training, 
+should be better than those individually
+- *task_combsig.sh* - [[file:task_combsig.sh][link]]
+
+*** conv-based resnet (fig7)
+- The HSIC-bottlneck on the ResNet based architecture, where the objective are applied on each residual block output
+- *task_resconv.sh* - [[file:task_resconv.sh][link]]
+
