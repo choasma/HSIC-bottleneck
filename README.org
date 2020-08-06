@@ -42,9 +42,14 @@ Here's the guide to work with HSIC-bottleneck
 - Otherwise, please see the developing guide for your intersts ([[file:source/README.org][link]])
 
 * Features
-WIP
+** visualize with toy tasks
+*** unformatted activation distribution
+#+caption: caption of the image
+#+attr_html: :width 50%
+#+attr_latex: :width 50%
+[[file:assets/samples/fig3-layer5-hsic-solve-actdist-mnist.png]]
 
-* TODO
+* Future work
 WIP
 
 * Cite
