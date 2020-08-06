@@ -1,0 +1,60 @@
+#+begin_src bash
+
+██╗  ██╗███████╗██╗ ██████╗
+██║  ██║██╔════╝██║██╔════╝
+███████║███████╗██║██║
+██╔══██║╚════██║██║██║         Let's kernelizing all your life into pieces :)
+██║  ██║███████║██║╚██████╗      and beating the Covid19 with HSIC
+╚═╝  ╚═╝╚══════╝╚═╝ ╚═════╝
+
+██████╗  ██████╗ ████████╗████████╗██╗     ███████╗███╗   ██╗███████╗ ██████╗██╗  ██╗
+██╔══██╗██╔═══██╗╚══██╔══╝╚══██╔══╝██║     ██╔════╝████╗  ██║██╔════╝██╔════╝██║ ██╔╝
+██████╔╝██║   ██║   ██║      ██║   ██║     █████╗  ██╔██╗ ██║█████╗  ██║     █████╔╝
+██╔══██╗██║   ██║   ██║      ██║   ██║     ██╔══╝  ██║╚██╗██║██╔══╝  ██║     ██╔═██╗
+██████╔╝╚██████╔╝   ██║      ██║   ███████╗███████╗██║ ╚████║███████╗╚██████╗██║  ██╗
+╚═════╝  ╚═════╝    ╚═╝      ╚═╝   ╚══════╝╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝╚═╝  ╚═╝
+#+end_src
+
+* HSIC-Bottleneck
+This is the released repo for our work entitled `The HSIC Bottleneck: Deep Learning without Back-Propagation`. All the experiments in the paper were produced by this repository.
+
+* Updates
+- 2020/Aug/7  I'm preparing a different repository to summarize my PhD works including HSIC-bottleneck, with better project architecture and API. If people would like to extend our work, please contact with us.
+- 2019/Nov/14 Our work has been accepted by AAAI2020 international conference.
+
+* Researcher
+Here's the guide to work with HSIC-bottleneck
+
+** Environment
+- pytorch-1.1.0
+- torchvision-0.3.0
+- numpy-1.16.4
+- scipy-1.3.0
+- tqdm-4.33.0
+- yaml-5.1.1
+
+** Experimenting
+- Reproducibility: Please refer to the task oriented scripts guide ([[file:scripts/README.org][link]])
+- Configuration: Please refer to configuration guide to suit your 
+
+** Developing
+- For people would like to extend our work, we have prepare the simple template for your toy experiment to make your life easier ([[file:tests/README.org][link]])
+- Otherwise, please see the developing guide for your intersts ([[file:source/README.org][link]])
+
+* Features
+WIP
+
+* TODO
+WIP
+
+* Cite
+Please cite our work if it is relevant to your research work, thanks! Hopfully you enjoy our work and please feel free to open issues or email us for more discussion.
+#+begin_src bibtex
+@article{Ma2019TheHB,
+  title={The HSIC Bottleneck: Deep Learning without Back-Propagation},
+  author={Wan-Duo Kurt Ma and J. P. Lewis and W. Bastiaan Kleijn},
+  journal={ArXiv},
+  year={2019},
+  volume={abs/1908.01580}
+}
+#+end_src
