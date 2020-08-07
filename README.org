@@ -40,8 +40,8 @@ Here's the guide to work with HSIC-bottleneck
 - Configuration: Please refer to configuration guide to suit your interests ([[file:config/README.org][link]])
 
 ** Developing
-- For people would like to extend our work, we have prepare the simple template for your toy experiment to make your life easier ([[file:tests/README.org][link]])
-- Otherwise, please see the developing guide for your intersts ([[file:source/README.org][link]])
+- For people would like to extend our work, we have prepare the simple template for your toy experiment to make your life easier ([[file:tests][link]])
+- Otherwise, please see the developing guide for your intersts ([[file:source][link]])
 
 * =Features=
 
@@ -61,7 +61,7 @@ Except the static experiment figures, you can also do animation based on the sav
 (please note that the above results are not trained with optimial parameters, they are only for showing animation purpose)
 
 ** learning triggers
-The entry point of our framework is with *run_hsicbt* command plus a configuration file ([[file:config/README.org][link]]). You can also specify the argument to overwrite the config file to achieve the goal of parameter searching as in task scripts for instance.
+The entry point of our framework is with *run_hsicbt* command plus a configuration file ([[file:config/][link]]). You can also specify the argument to overwrite the config file to achieve the goal of parameter searching as in task scripts for instance.
 
 * =future work=
 WIP
