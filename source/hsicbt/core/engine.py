@@ -10,7 +10,7 @@ from ..utils.path    import *
 def training_standard(config_dict):
 
     print_emph("Standard training")
-    code_name = [config_dict['task'], TTYPE_STANDARD, config_dict['data_code'], config_dict['exp_index']]
+    code_name = [config_dict['task'], TTYPE_STANDARD, config_dict['data_code']]
 
     train_loader, test_loader = get_dataset_from_code(
         config_dict['data_code'], config_dict['batch_size'])
@@ -21,13 +21,13 @@ def training_standard(config_dict):
     torch.manual_seed(config_dict['seed'])
     hsic_model     = model_distribution(config_dict)
     model          = ModelEnsemble(hsic_model, vanilla_model)
-    
+
     if config_dict['verbose']:
         print(model)
         print(json.dumps(config_dict, sort_keys=True,
                  indent=4, separators=(',', ': ')))
 
-    optimizer = optim.SGD( filter(lambda p: p.requires_grad, model.parameters()), 
+    optimizer = optim.SGD( filter(lambda p: p.requires_grad, model.parameters()),
             lr = config_dict['learning_rate'], weight_decay=1E-5)
 
     batch_log_list = []
@@ -40,39 +40,39 @@ def training_standard(config_dict):
 
     if DEBUG_MODE:
         nepoch = 2
-        
+
     train_acc, train_loss = misc.get_accuracy_epoch(model, train_loader)
-    epoch_log_dict['train_acc'].append(train_acc) 
+    epoch_log_dict['train_acc'].append(train_acc)
     epoch_log_dict['train_loss'].append(train_loss)
     test_acc, test_loss = misc.get_accuracy_epoch(model, test_loader)
-    epoch_log_dict['test_acc'].append(test_acc) 
+    epoch_log_dict['test_acc'].append(test_acc)
     epoch_log_dict['test_loss'].append(test_loss)
 
-        
-    for cepoch in range(1, nepoch+1):
 
+    for cepoch in range(1, nepoch+1):
 
         log = standard_train(cepoch, model, train_loader, optimizer, config_dict)
         batch_log_list.append(log)
         train_acc, train_loss = misc.get_accuracy_epoch(model, train_loader)
-        epoch_log_dict['train_acc'].append(train_acc) 
+        epoch_log_dict['train_acc'].append(train_acc)
         epoch_log_dict['train_loss'].append(train_loss)
         test_acc, test_loss = misc.get_accuracy_epoch(model, test_loader)
-        epoch_log_dict['test_acc'].append(test_acc) 
+        epoch_log_dict['test_acc'].append(test_acc)
         epoch_log_dict['test_loss'].append(test_loss)
         print_highlight("Epoch - [{:04d}]: Training Acc: {:.2f}".format(cepoch, train_acc), 'green')
         print_highlight("Epoch - [{:04d}]: Testing  Acc: {:.2f}".format(cepoch, test_acc), 'green')
 
         if config_dict['task'] == 'needle':
             data = activations_extraction(model, train_loader, 1)
+            filepath = get_act_path(*code_name, idx=cepoch)
+            save_logs(data, filepath)
             filepath = get_act_path(*code_name)
             save_logs(data, filepath)
-
 
         log_dict = {}
         log_dict['batch_log_list'] = batch_log_list
         log_dict['epoch_log_dict'] = epoch_log_dict
-        log_dict['config_dict'] = config_dict    
+        log_dict['config_dict'] = config_dict
         save_logs(log_dict, get_log_filepath(*code_name))
 
 
@@ -84,7 +84,7 @@ def training_format_combined(config_dict):
 
     train_loader, test_loader = get_dataset_from_code(
         config_dict['data_code'], config_dict['batch_size'])
-    
+
     torch.manual_seed(config_dict['seed'])
     vanilla_model = ModelVanilla(**config_dict)
     num_hsic_model = len(config_dict['model_file'])
@@ -95,8 +95,8 @@ def training_format_combined(config_dict):
         hsic_model.load_state_dict(model)
         # hsic_model.eval()
         hsic_models.append(hsic_model)
-    
-    optimizer = optim.SGD( filter(lambda p: p.requires_grad, vanilla_model.parameters()), 
+
+    optimizer = optim.SGD( filter(lambda p: p.requires_grad, vanilla_model.parameters()),
             lr = config_dict['learning_rate'], momentum=.9, weight_decay=0.0001)
 
     ensemble_model = ModelEnsembleComb(hsic_models, vanilla_model)
@@ -119,19 +119,19 @@ def training_format_combined(config_dict):
 
     # WIP: untrained test acc
     test_acc, test_loss = misc.get_accuracy_epoch(ensemble_model, test_loader)
-    epoch_log_dict['test_acc'].append(test_acc) 
+    epoch_log_dict['test_acc'].append(test_acc)
     epoch_log_dict['test_loss'].append(test_loss)
-    
+
     for cepoch in range(1, nepoch+1):
         log = standard_train(cepoch, ensemble_model, train_loader, optimizer, config_dict)
         batch_log_list.append(log)
 
 
         train_acc, train_loss = misc.get_accuracy_epoch(ensemble_model, train_loader)
-        epoch_log_dict['train_acc'].append(train_acc) 
+        epoch_log_dict['train_acc'].append(train_acc)
         epoch_log_dict['train_loss'].append(train_loss)
         test_acc, test_loss = misc.get_accuracy_epoch(ensemble_model, test_loader)
-        epoch_log_dict['test_acc'].append(test_acc) 
+        epoch_log_dict['test_acc'].append(test_acc)
         epoch_log_dict['test_loss'].append(test_loss)
         print_highlight("Epoch - [{:04d}]: Training Acc: {:.2f}".format(cepoch, train_acc), 'green')
         print_highlight("Epoch - [{:04d}]: Testing  Acc: {:.2f}".format(cepoch, test_acc), 'green')
@@ -139,10 +139,10 @@ def training_format_combined(config_dict):
         log_dict = {}
         log_dict['batch_log_list'] = batch_log_list
         log_dict['epoch_log_dict'] = epoch_log_dict
-        log_dict['config_dict'] = config_dict    
+        log_dict['config_dict'] = config_dict
         save_logs(log_dict, get_log_filepath(
             config_dict['task'], TTYPE_FORMAT, config_dict['data_code'], config_dict['exp_index']))
-    
+
 
     return batch_log_list, epoch_log_dict
 
@@ -156,8 +156,8 @@ def training_format(config_dict):
     vanilla_model = ModelVanilla(**config_dict)
     torch.manual_seed(config_dict['seed'])
     hsic_model = model_distribution(config_dict)
-    
-    optimizer = optim.SGD( filter(lambda p: p.requires_grad, vanilla_model.parameters()), 
+
+    optimizer = optim.SGD( filter(lambda p: p.requires_grad, vanilla_model.parameters()),
             lr = config_dict['learning_rate'], weight_decay=0.001)
 
     model = load_model(get_model_path("{}".format(
@@ -171,7 +171,7 @@ def training_format(config_dict):
         print(ensemble_model)
         print(json.dumps(config_dict, sort_keys=True,
                  indent=4, separators=(',', ': ')))
-        
+
     batch_log_list = []
     epoch_log_dict = {}
     epoch_log_dict['train_acc'] = []
@@ -186,34 +186,34 @@ def training_format(config_dict):
 
     # WIP: test acc for untrained net
     test_acc, test_loss = misc.get_accuracy_epoch(ensemble_model, test_loader)
-    epoch_log_dict['test_acc'].append(test_acc) 
+    epoch_log_dict['test_acc'].append(test_acc)
     epoch_log_dict['test_loss'].append(test_loss)
     train_acc, train_loss = misc.get_accuracy_epoch(ensemble_model, train_loader)
-    epoch_log_dict['train_acc'].append(train_acc) 
+    epoch_log_dict['train_acc'].append(train_acc)
     epoch_log_dict['train_loss'].append(train_loss)
-        
+
     for cepoch in range(1, nepoch+1):
         log = standard_train(cepoch, ensemble_model, train_loader, optimizer, config_dict)
         batch_log_list.append(log)
 
         train_acc, train_loss = misc.get_accuracy_epoch(ensemble_model, train_loader)
-        epoch_log_dict['train_acc'].append(train_acc) 
+        epoch_log_dict['train_acc'].append(train_acc)
         epoch_log_dict['train_loss'].append(train_loss)
         test_acc, test_loss = misc.get_accuracy_epoch(ensemble_model, test_loader)
-        epoch_log_dict['test_acc'].append(test_acc) 
+        epoch_log_dict['test_acc'].append(test_acc)
         epoch_log_dict['test_loss'].append(test_loss)
         print_highlight("Epoch - [{:04d}]: Training Acc: {:.2f}".format(cepoch, train_acc), 'green')
         print_highlight("Epoch - [{:04d}]: Testing  Acc: {:.2f}".format(cepoch, test_acc), 'green')
 
-    
+
         log_dict = {}
         log_dict['batch_log_list'] = batch_log_list
         log_dict['epoch_log_dict'] = epoch_log_dict
         log_dict['config_dict'] = config_dict
         save_logs(log_dict, get_log_filepath(
             config_dict['task'], TTYPE_FORMAT, config_dict['data_code'], config_dict['exp_index']))
-        
-    
+
+
     return batch_log_list, epoch_log_dict
 
 def training_hsic(config_dict):
@@ -230,7 +230,7 @@ def training_hsic(config_dict):
         print(model)
         print(json.dumps(config_dict, sort_keys=True,
                  indent=4, separators=(',', ': ')))
-        
+
     nepoch = config_dict['epochs']
 
     if DEBUG_MODE:
@@ -240,7 +240,7 @@ def training_hsic(config_dict):
     if config_dict['checkpoint']:
         model_dict = load_model(get_model_path("{}".format(
             config_dict['model_file']), config_dict['checkpoint']))
-        epoch_range = range(config_dict['checkpoint']+1, 
+        epoch_range = range(config_dict['checkpoint']+1,
             config_dict['checkpoint']+config_dict['epochs']+1)
         model.load_state_dict(model_dict)
 
@@ -248,7 +248,7 @@ def training_hsic(config_dict):
     epoch_log_dict = {}
     epoch_log_dict['train_acc'] = []
     epoch_log_dict['test_acc'] = []
-    
+
     sigma_tensor = Variable(torch.ones(14).float().to(config_dict['device']), requires_grad=True)
 
 
@@ -257,8 +257,8 @@ def training_hsic(config_dict):
         train_acc, reordered = misc.get_accuracy_hsic(model=model, dataloader=train_loader)
         test_acc, reordered = misc.get_accuracy_hsic(model=model, dataloader=test_loader)
         epoch_log_dict['train_acc'].append(train_acc)
-        epoch_log_dict['test_acc'].append(test_acc)        
-    
+        epoch_log_dict['test_acc'].append(test_acc)
+
     for cepoch in epoch_range:
 
         log = hsic_train(cepoch, model, train_loader, config_dict)
@@ -279,7 +279,7 @@ def training_hsic(config_dict):
                        get_model_path("{}".format(filename)),
                        get_model_path("{}".format(config_dict['model_file']))
             )
-    
+
         if config_dict['task'] == 'hsic-solve':
             train_acc, reordered = misc.get_accuracy_hsic(model=model, dataloader=train_loader)
             test_acc, reordered = misc.get_accuracy_hsic(model=model, dataloader=test_loader)
@@ -292,15 +292,15 @@ def training_hsic(config_dict):
             data = activations_extraction(model, train_loader)
             filepath = get_act_path(*code_name)
             save_logs(data, filepath)
-            
+
         if config_dict['task'] == 'needle':
             data = activations_extraction(model, train_loader, out_dim=1)
-            
+
             _code_name = [config_dict['task'], TTYPE_HSICTRAIN, config_dict['data_code'], cepoch]
             filepath = get_act_path(*_code_name)
             save_logs(data, filepath)
             _code_name = [config_dict['task'], TTYPE_HSICTRAIN, config_dict['data_code'], None]
-            filepath = get_act_path(*_code_name)            
+            filepath = get_act_path(*_code_name)
             save_logs(data, filepath)
 
             # out_list = [64, 32, 16, 8, 4, 2, 1]
@@ -309,11 +309,11 @@ def training_hsic(config_dict):
             #     _code_name = [config_dict['task'], TTYPE_HSICTRAIN, config_dict['data_code'], (cepoch-1)*len(out_list)+i]
             #     filepath = get_act_path(*_code_name)
             #     save_logs(data, filepath)
-            
+
         log_dict = {}
         log_dict['batch_log_list'] = batch_log_list
         log_dict['epoch_log_dict'] = epoch_log_dict
         log_dict['config_dict'] = config_dict
         save_logs(log_dict, get_log_filepath(*code_name))
-    
+
     return batch_log_list, epoch_log_dict

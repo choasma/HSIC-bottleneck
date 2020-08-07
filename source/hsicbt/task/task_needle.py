@@ -56,7 +56,7 @@ def plot_needle_result(config_dict):
         # save_experiment_fig(filepath)
         
     except IOError as e:
-        print_highlight("{}.\nPlease do training by setting do_training key to True in config. Program exits.".format(e), 'red')
+        print_highlight("{}.\nPlease do training by setting do_training key to True in config. Program quits.".format(e), 'red')
         quit()    
 
 def task_needle_func(config_dict):

@@ -44,12 +44,23 @@ Here's the guide to work with HSIC-bottleneck
 * Features
 ** visualize with toy tasks
 
+# #+BEGIN_center
+# #+attr_html: :width 30%
+# #+attr_latex: :width 30%
+# [[file:assets/samples/fig8a-needle-1d-dist-backprop.gif]]
+# #+attr_html: :width 30%
+# #+attr_latex: :width 30%
+# [[file:assets/samples/fig8b-needle-1d-dist-hsictrain.gif]]
+# #+END_center
+| [[file:assets/samples/fig8a-needle-1d-dist-backprop.gif]]  | [[file:assets/samples/fig8b-needle-1d-dist-hsictrain.gif]] |
+
 *unformatted activation distribution*
 #+attr_html: :width 30%
 #+attr_latex: :width 30%
 [[file:assets/samples/fig3-layer5-hsic-solve-actdist-mnist.png]]
 
-
+# #+ATTR_LaTeX: :height 0.2\textwidth :center
+# [[image2.png]]
 * Future work
 WIP
 
