@@ -49,7 +49,7 @@ Here's the guide to work with HSIC-bottleneck
 For every single training, the system will keep almost all of information in the *assets/*/raw* folder and make the symlink under *assets/** pointing to the latest experiments. After the training, the system will automatically generate the experiment figure in the folder.
 
 ** visualization
-Except the static experiment figures, you can also do animation based on the saved loggers. Checkout the script [[file:tests/plot-animation.py][link]] for more information.
+Except the static experiment figures, you can also do animation based on the saved loggers. Checkout the script [[file:tests/plot-result-dynamic.py][link]] for more information.
 
 *needle test*
 - Model 786 to 1 output of backprop(left) and HSIC-bottleneck comparison

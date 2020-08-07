@@ -104,4 +104,10 @@ def hsic_train(cepoch, model, data_loader, config_dict):
 
         pbar.set_description(msg)
 
+        # if cepoch==1:
+        #     data = activations_extraction(model, data_loader)
+        #     _code_name = [config_dict['task'], TTYPE_HSICTRAIN, config_dict['data_code']+"_batch", batch_idx]
+        #     filepath = get_act_path(*_code_name)
+        #     save_logs(data, filepath)
+
     return batch_log

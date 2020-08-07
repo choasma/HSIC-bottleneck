@@ -163,7 +163,7 @@ def plot_batches_log(curve_list, ptype, metadata):
         plt.legend(fontsize=FONTSIZE_LEDEND, loc='upper right')
     
 
-def plot_activation_distribution(datapath):
+def plot_activation_distribution(datapath, title):
 
 
     data = np.load(datapath, allow_pickle=True)[()]
@@ -216,7 +216,9 @@ def plot_activation_distribution(datapath):
         #subplot.set_xlabel('10 dimension output activation indices')
         #subplot.set_ylabel('activation value')
 
-    fig.suptitle("activations of unformatted training", fontsize=FONTSIZE_TITLE)
+    # fig.suptitle("activations of unformatted training", fontsize=FONTSIZE_TITLE)
+    title += "  class argmax {}".format(shuffled_list)
+    fig.suptitle(title, fontsize=FONTSIZE_TITLE)
     #fig.text(0.2, 0.05, "10 dimension output activation indices; shuffled argmax list {}".format(shuffled_list), fontsize=FONTSIZE_XLABEL)
     print(shuffled_list)
     #fig.text(0.1, 0.6, "activation", fontsize=FONTSIZE_YLABEL, rotation='vertical')
