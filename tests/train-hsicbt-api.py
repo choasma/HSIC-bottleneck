@@ -26,4 +26,5 @@ model = ModelLinear(hidden_width=64,
 # # # start to train
 epochs = 5
 for cepoch in range(epochs):
+    # you can also re-write hsic_train function
     hsic_train(cepoch, model, train_loader, config_dict)

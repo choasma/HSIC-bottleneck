@@ -15,14 +15,16 @@
 ╚═════╝  ╚═════╝    ╚═╝      ╚═╝   ╚══════╝╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝╚═╝  ╚═╝
 #+end_src
 
-* HSIC-Bottleneck
+* =HSIC-Bottleneck=
 This is the released repo for our work entitled `The HSIC Bottleneck: Deep Learning without Back-Propagation`. All the experiments in the paper were produced by this repository.
 
-* Updates
-- 2020/Aug/7  I'm preparing a different repository to summarize my PhD works including HSIC-bottleneck, with better project architecture and API. If people would like to extend our work, please contact with us.
-- 2019/Nov/14 Our work has been accepted by AAAI2020 international conference.
+* =Updates=
+- *2020/Aug/7*
+I'm preparing a different repository to summarize my PhD works including HSIC-bottleneck, with better project architecture and API. If people would like to extend our work, please contact with us.
+- *2019/Nov/14*
+Our work has been accepted by AAAI2020 international conference.
 
-* Researcher
+* =Researcher=
 Here's the guide to work with HSIC-bottleneck
 
 ** Environment
@@ -41,25 +43,30 @@ Here's the guide to work with HSIC-bottleneck
 - For people would like to extend our work, we have prepare the simple template for your toy experiment to make your life easier ([[file:tests/README.org][link]])
 - Otherwise, please see the developing guide for your intersts ([[file:source/README.org][link]])
 
-* Features
+* =Features=
 
-** visualize with toy tasks
+** loggers
+For every single training, the system will keep almost all of information in the *assets/*/raw* folder and make the symlink under *assets/** pointing to the latest experiments. After the training, the system will automatically generate the experiment figure in the folder.
+
+** visualization
+Except the static experiment figures, you can also do animation based on the saved loggers. Checkout the script [[file:tests/plot-animation.py][link]] for more information.
+
 *needle test*
 - Model 786 to 1 output of backprop(left) and HSIC-bottleneck comparison
 |[[file:assets/samples/fig8a-needle-1d-dist-backprop.gif]]|[[file:assets/samples/fig8b-needle-1d-dist-hsictrain.gif]]|
 
 *unformatted activation distribution*
-- showing activation distribution from MNIST class 1 (top-left) to class 9 (bottom-right) respectively
+- Showing activation distribution from MNIST class 1 (top-left) to class 9 (bottom-right) respectively, this is what we called unformatted information as the class of images might be activated at different entry of the output. (In this case, class 1 images are gathering around entry 5 by looking at top-left figure)
 [[file:assets/samples/fig3-layer2-hsic-solve-actdist-mnist-batch.gif]]
 (please note that the above results are not trained with optimial parameters, they are only for showing animation purpose)
 
-** learning arguments
+** learning triggers
+The entry point of our framework is with *run_hsicbt* command plus a configuration file ([[file:config/README.org][link]]). You can also specify the argument to overwrite the config file to achieve the goal of parameter searching as in task scripts for instance.
+
+* =future work=
 WIP
 
-* Future work
-WIP
-
-* Cite
+* =Cite=
 Please cite our work if it is relevant to your research work, thanks! Hopfully you enjoy our work and please feel free to open issues or email us for more discussion.
 #+begin_src bibtex
 @inproceedings{DBLP:conf/aaai/MaLK20,
