@@ -42,25 +42,20 @@ Here's the guide to work with HSIC-bottleneck
 - Otherwise, please see the developing guide for your intersts ([[file:source/README.org][link]])
 
 * Features
-** visualize with toy tasks
 
-# #+BEGIN_center
-# #+attr_html: :width 30%
-# #+attr_latex: :width 30%
-# [[file:assets/samples/fig8a-needle-1d-dist-backprop.gif]]
-# #+attr_html: :width 30%
-# #+attr_latex: :width 30%
-# [[file:assets/samples/fig8b-needle-1d-dist-hsictrain.gif]]
-# #+END_center
-| [[file:assets/samples/fig8a-needle-1d-dist-backprop.gif]]  | [[file:assets/samples/fig8b-needle-1d-dist-hsictrain.gif]] |
+** visualize with toy tasks
+*needle test*
+- Model 786 to 1 output of backprop(left) and HSIC-bottleneck comparison
+|[[file:assets/samples/fig8a-needle-1d-dist-backprop.gif]]|[[file:assets/samples/fig8b-needle-1d-dist-hsictrain.gif]]|
 
 *unformatted activation distribution*
-#+attr_html: :width 30%
-#+attr_latex: :width 30%
-[[file:assets/samples/fig3-layer5-hsic-solve-actdist-mnist.png]]
+- showing activation distribution from MNIST class 1 (top-left) to class 9 (bottom-right) respectively
+[[file:assets/samples/fig3-layer2-hsic-solve-actdist-mnist-batch.gif]]
+(please note that the above results are not trained with optimial parameters, they are only for showing animation purpose)
 
-# #+ATTR_LaTeX: :height 0.2\textwidth :center
-# [[image2.png]]
+** learning arguments
+WIP
+
 * Future work
 WIP
 
