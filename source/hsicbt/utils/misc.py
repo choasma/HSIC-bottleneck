@@ -88,7 +88,7 @@ def get_accuracy_hsic(model, dataloader):
             y[np.argmax(y)] = 0
         reorder_list.append(np.argmax(y))
         num_correct = np.where(out==np.argmax(y))[0]
-        accuracy = float(num_correct.shape[0]/out.shape[0])
+        accuracy = float(num_correct.shape[0])/float(out.shape[0])
         avg_acc += accuracy
     avg_acc /= 10.
 
