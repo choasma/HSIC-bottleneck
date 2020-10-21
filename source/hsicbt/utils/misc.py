@@ -84,8 +84,9 @@ def get_accuracy_hsic(model, dataloader):
         select_item = output_arr[indices]
         out = np.array([np.argmax(vec) for vec in select_item])
         y = np.mean(select_item, axis=0)
-        while np.argmax(y) in reorder_list:
-            y[np.argmax(y)] = 0
+        # while np.argmax(y) in reorder_list:
+        #     y[np.argmax(y)] = 0
+
         reorder_list.append(np.argmax(y))
         num_correct = np.where(out==np.argmax(y))[0]
         accuracy = float(num_correct.shape[0])/float(out.shape[0])

@@ -32,6 +32,8 @@ def hsic_train(cepoch, model, data_loader, config_dict):
         if os.environ.get('HSICBT_DEBUG')=='4':
             if batch_idx > 5:
                 break
+        if data.size()[0]!=config_dict['batch_size']:
+            break
                 
         data   = data.to(config_dict['device'])
         target = target.to(config_dict['device'])
@@ -55,6 +57,7 @@ def hsic_train(cepoch, model, data_loader, config_dict):
             output, hiddens = model(data)
             params, param_names = misc.get_layer_parameters(model=model, idx_range=idx_range[i]) # so we only optimize one layer at a time
             optimizer = optim.SGD(params, lr = config_dict['learning_rate'], momentum=.9, weight_decay=0.001)
+
             optimizer.zero_grad()
             # sigma_optimizer.zero_grad()
             if len(hiddens[i].size()) > 2:

@@ -26,10 +26,18 @@ def activations_extraction(model, data_loader, out_dim=10, hid_idx=-1,):
 def hsic_objective(hidden, h_target, h_data, sigma):
 
 
-    hsic_hy_val = hsic_normalized_cca( hidden, h_target, sigma=sigma)
-    hsic_hx_val = hsic_normalized_cca( hidden, h_data,   sigma=sigma)
+    # hsic_hy_val = hsic_normalized_cca( hidden, h_target, sigma=sigma)
+    # hsic_hx_val = hsic_normalized_cca( hidden, h_data,   sigma=sigma)
+    
+    # hsic_hy_val = hsic_normalized_cca_sampling_hack( hidden, h_target, sigma=sigma)
+    # hsic_hx_val = hsic_normalized_cca_sampling_hack( hidden, h_data,   sigma=sigma)
 
-
+    hsic_hy_val = hsic_normalized_cca_sampling_kurt_v2( hidden, h_target, sigma=sigma)
+    hsic_hx_val = hsic_normalized_cca_sampling_kurt_v2( hidden, h_data,   sigma=sigma)
+    
+    # hsic_hy_val = hsic_normalized_cca_sampling_nystrom( hidden, h_target, sigma=sigma, n=4)
+    # hsic_hx_val = hsic_normalized_cca_sampling_nystrom( hidden, h_data,   sigma=sigma, n=4)
+    
     return hsic_hx_val, hsic_hy_val
   
 def model_distribution(config_dict):

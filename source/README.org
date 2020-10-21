@@ -1,0 +1,7 @@
+* HSIC-Bottleneck Modules
+** hsicbt.core
+Core module controls the learning life time, tipically with the for-loop training at each epoch. 
+** hsicbt.math
+** hsicbt.model
+** hsicbt.task
+** hsicbt.utils
